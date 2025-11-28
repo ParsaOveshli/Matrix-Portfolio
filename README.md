@@ -54,6 +54,8 @@ git clone https://github.com/ParsaOveshli/Matrix-Portfolio
 
 🔗 **دمو:**
 👉 [https://info.parsaoveshli.ir](https://info.parsaoveshli.ir)
+
+---
 🔗 **سایت اصلی من:**
 👉 [https://parsaoveshli.ir](https://parsaoveshli.ir)
 
@@ -72,5 +74,3 @@ git clone https://github.com/ParsaOveshli/Matrix-Portfolio
 اگه پروژه برات جالب بود، لطفاً یک ⭐ روی ریپو بزن تا حمایتت رو ببینم!
 
 ---
-
-اگر خواستی بخش‌های بیشتری مثل **اسکرین‌شات، دموی آنلاین، لوگوی سفارشی، GIF از افکت ماتریکس** و … اضافه کنم، فقط بگو ✨
