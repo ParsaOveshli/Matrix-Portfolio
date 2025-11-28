@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نمونه کار من | توسعه‌دهنده وب</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Vazirmatn Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css?v=1.0.0">
+    
+    <!-- Protection Scripts -->
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+        document.onkeydown = function(e) {
+            if(event.keyCode == 123) {
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        }
+        
+        // Disable text selection
+        document.onselectstart = function() { return false; };
+        
+        // Disable drag and drop
+        document.ondragstart = function() { return false; };
+        
+        // Disable printing
+        document.onbeforeprint = function() { return false; };
+    </script>
+</head>
+<body class="antialiased selection:bg-green-500 selection:text-black">
+
+    <!-- Matrix Background -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 right-0 transition-all duration-300 p-4" id="navbar">
+        <div class="glass-card rounded-2xl max-w-5xl mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-green-400 neon-text tracking-tighter">&lt;ParsaOveshli /&gt;</div>
+            <ul class="hidden md:flex space-x-reverse space-x-8 text-sm font-medium">
+                <li><a href="#home" class="hover:text-green-400 transition-colors">خانه</a></li>
+                <li><a href="#about" class="hover:text-green-400 transition-colors">درباره من</a></li>
+                <li><a href="#skills" class="hover:text-green-400 transition-colors">مهارت‌ها</a></li>
+                <li><a href="#projects" class="hover:text-green-400 transition-colors">پروژه‌ها</a></li>
+                <li><a href="#contact" class="hover:text-green-400 transition-colors">تماس</a></li>
+            </ul>
+            <a href="#contact" class="hidden md:inline-block px-5 py-2 bg-green-600 hover:bg-green-500 text-black font-bold rounded-lg transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(0,255,65,0.5)]">
+                همکاری با من
+            </a>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-green-400 focus:outline-none" id="mobile-menu-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden mt-4 glass-card rounded-xl p-4 absolute w-[calc(100%-2rem)] right-4" id="mobile-menu">
+            <ul class="flex flex-col space-y-4 text-center font-medium">
+                <li><a href="#home" class="block py-2 hover:bg-green-900/30 rounded text-green-300">خانه</a></li>
+                <li><a href="#about" class="block py-2 hover:bg-green-900/30 rounded text-green-300">درباره من</a></li>
+                <li><a href="#skills" class="block py-2 hover:bg-green-900/30 rounded text-green-300">مهارت‌ها</a></li>
+                <li><a href="#projects" class="block py-2 hover:bg-green-900/30 rounded text-green-300">پروژه‌ها</a></li>
+                <li><a href="#contact" class="block py-2 hover:bg-green-900/30 rounded text-green-300">تماس</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-right order-2 md:order-1 hero-content">
+                <div class="inline-block px-3 py-1 mb-4 border border-green-500 rounded-full text-green-400 text-xs font-bold tracking-wide bg-green-900/20">
+                    خوش آمدید
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                    خلق تجربه‌های <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600 neon-text">دیجیتال نوین</span>
+                </h1>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed max-w-lg">
+                    من یک توسعه‌دهنده وب فول‌استک هستم که عاشق کدنویسی و خلق رابط‌های کاربری زیبا و کاربردی‌ام. بیایید با هم آینده را بسازیم.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projects" class="px-8 py-3 bg-green-600 hover:bg-green-500 text-black font-bold rounded-lg transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(0,255,65,0.4)]">
+                        مشاهده کارهای من
+                    </a>
+                    <a href="#contact" class="px-8 py-3 border border-green-500 text-green-400 hover:bg-green-900/20 font-bold rounded-lg transition-all">
+                        تماس بگیرید
+                    </a>
+                </div>
+            </div>
+            <div class="order-1 md:order-2 flex justify-center hero-image relative">
+                <div class="w-64 h-64 md:w-96 md:h-96 relative">
+                    <div class="absolute inset-0 bg-green-500 rounded-full blur-[100px] opacity-20 animate-pulse"></div>
+                    <div class="relative w-full h-full rounded-3xl overflow-hidden border-2 border-green-500/50 neon-border bg-gray-900 flex items-center justify-center">
+                        <!-- Abstract Code SVG Representation -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full opacity-80">
+                            <path fill="#00FF41" d="M45.7,-76.8C58.9,-69.3,69.1,-56.6,76.4,-42.8C83.7,-29,88.1,-14.1,85.8,-0.5C83.5,13.1,74.4,25.4,65.3,37.8C56.2,50.2,47.1,62.7,35.4,71.1C23.7,79.5,9.4,83.8,-3.6,89.1C-16.6,94.4,-28.3,100.7,-39.4,95.5C-50.5,90.3,-61,73.6,-69.7,58.6C-78.4,43.6,-85.3,30.3,-86.6,16.4C-87.9,2.5,-83.6,-12,-75.6,-24.2C-67.6,-36.4,-55.9,-46.3,-44,-54.2C-32.1,-62.1,-20,-68,-7.4,-66.8C5.2,-65.6,10.4,-57.3,45.7,-76.8Z" transform="translate(100 100) scale(0.8)" />
+                            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-size="24" font-family="monospace" font-weight="bold">&lt;/&gt;</text>
+                        </svg>
+                    </div>
+                    <!-- Floating elements -->
+                    <div class="absolute -top-6 -right-6 glass-card p-3 rounded-lg border-l-4 border-green-500 animate-bounce" style="animation-duration: 3s;">
+                        <span class="font-mono text-green-400 text-xs">JS Mastery</span>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 glass-card p-3 rounded-lg border-r-4 border-blue-500 animate-bounce" style="animation-duration: 4s;">
+                        <span class="font-mono text-blue-400 text-xs">React / Vue</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce text-green-500">
+            <span class="text-xs mb-2">اسکرول کنید</span>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative about-img-container">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-green-600 to-transparent rounded-2xl transform rotate-3 opacity-30"></div>
+                    <div class="glass-card p-8 rounded-2xl relative z-10 border-t border-green-500/30">
+                        <h3 class="text-2xl font-bold text-green-400 mb-4">برنامه نویس با اشتیاق</h3>
+                        <p class="text-gray-300 leading-loose mb-4">
+                            من پارسا هستم، یک توسعه‌دهنده خلاق که بیش از ۵ سال است در دنیای وب فعالیت می‌کنم. هدف من همیشه ایجاد راه‌حل‌های کارآمد و زیبا برای چالش‌های پیچیده بوده است.
+                        </p>
+                        <p class="text-gray-300 leading-loose">
+                            من معتقدم که وب‌سایت‌ها نباید فقط کار کنند، بلکه باید یک تجربه به یاد ماندنی برای کاربر بسازند. ترکیب هنر و تکنولوژی چیزی است که من در هر پروژه دنبال می‌کنم.
+                        </p>
+                        <div class="mt-6 flex gap-4">
+                            <div class="text-center">
+                                <span class="block text-3xl font-bold text-white">30+</span>
+                                <span class="text-xs text-gray-400">پروژه تکمیل شده</span>
+                            </div>
+                            <div class="w-px bg-gray-700 h-12"></div>
+                            <div class="text-center">
+                                <span class="block text-3xl font-bold text-white">5+</span>
+                                <span class="text-xs text-gray-400">سال تجربه</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text-container">
+                    <h2 class="text-4xl font-bold mb-6 flex items-center gap-3">
+                        <span class="w-12 h-1 bg-green-500 rounded-full"></span>
+                        درباره من
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-6">
+                        من متخصص در تبدیل ایده‌ها به واقعیت‌های دیجیتال هستم.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 hover:bg-white/5 rounded-xl transition-colors group">
+                            <div class="w-12 h-12 rounded-full bg-green-900/50 flex items-center justify-center group-hover:bg-green-600 transition-colors">
+                                <svg class="w-6 h-6 text-green-400 group-hover:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">توسعه وب</h4>
+                                <p class="text-sm text-gray-400">ساخت وب‌سایت‌های ریسپانسیو و مدرن</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 hover:bg-white/5 rounded-xl transition-colors group">
+                            <div class="w-12 h-12 rounded-full bg-green-900/50 flex items-center justify-center group-hover:bg-green-600 transition-colors">
+                                <svg class="w-6 h-6 text-green-400 group-hover:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">طراحی UI/UX</h4>
+                                <p class="text-sm text-gray-400">طراحی رابط‌های کاربری جذاب و کاربرپسند</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-black/20 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 text-white">مهارت‌های فنی</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">ابزارها و تکنولوژی‌هایی که من برای جان بخشیدن به پروژه‌ها استفاده می‌کنم.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Progress Bars -->
+                <div class="space-y-8 glass-card p-8 rounded-2xl">
+                    <h3 class="text-xl font-bold text-green-400 mb-6 border-b border-gray-700 pb-2">Front-End</h3>
+                    
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">HTML5 / CSS3</span>
+                            <span class="text-green-400">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-500 skill-progress" style="width: 0" data-width="95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">JavaScript</span>
+                            <span class="text-green-400">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-500 skill-progress" style="width: 0" data-width="90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">React.js / Next.js</span>
+                            <span class="text-green-400">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-500 skill-progress" style="width: 0" data-width="85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Tailwind CSS</span>
+                            <span class="text-green-400">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 h-2 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-500 skill-progress" style="width: 0" data-width="95%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Circular or Cards -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:bg-green-900/20 transition-all group skill-card">
+                        <svg class="w-12 h-12 text-gray-400 group-hover:text-green-400 mb-4 transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/>
+                        </svg>
+                        <span class="font-bold">Node.js</span>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:bg-green-900/20 transition-all group skill-card">
+                        <svg class="w-12 h-12 text-gray-400 group-hover:text-green-400 mb-4 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                        <span class="font-bold">Git & GitHub</span>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:bg-green-900/20 transition-all group skill-card">
+                        <svg class="w-12 h-12 text-gray-400 group-hover:text-green-400 mb-4 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        <span class="font-bold">Responsive Design</span>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center hover:bg-green-900/20 transition-all group skill-card">
+                        <svg class="w-12 h-12 text-gray-400 group-hover:text-green-400 mb-4 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <span class="font-bold">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-12 text-center">
+                <span class="border-b-4 border-green-500 pb-1">پروژه‌های منتخب</span>
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300 project-card">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                        <!-- Placeholder for Project Image -->
+                        <div class="w-full h-full bg-gray-700 flex items-center justify-center text-gray-500 group-hover:scale-110 transition-transform duration-500">
+                            <svg class="w-16 h-16 opacity-20" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"/></svg>
+                        </div>
+                        <div class="absolute bottom-4 right-4 z-20">
+                            <span class="bg-green-600 text-black text-xs font-bold px-2 py-1 rounded">فروشگاهی</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">دیجی‌شاپ پلاس</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">
+                            یک پلتفرم فروشگاهی کامل با پنل مدیریت، درگاه پرداخت و سیستم سبد خرید پیشرفته که با React و Node.js ساخته شده است.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">React</span>
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">Redux</span>
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">MongoDB</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-700/50">
+                            <a href="#" class="text-green-400 text-sm hover:underline flex items-center gap-1">
+                                مشاهده آنلاین
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300 project-card">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                        <div class="w-full h-full bg-gray-700 flex items-center justify-center text-gray-500 group-hover:scale-110 transition-transform duration-500">
+                            <svg class="w-16 h-16 opacity-20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm16 16V5H5v14h14zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/></svg>
+                        </div>
+                        <div class="absolute bottom-4 right-4 z-20">
+                            <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">داشبورد</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">تسک منیجر پرو</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">
+                            برنامه‌ای برای مدیریت وظایف تیمی با قابلیت‌های Drag & Drop، تقویم و گزارش‌گیری دقیق.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">Vue.js</span>
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">Firebase</span>
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">Tailwind</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-700/50">
+                            <a href="#" class="text-green-400 text-sm hover:underline flex items-center gap-1">
+                                مشاهده آنلاین
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300 project-card">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                        <div class="w-full h-full bg-gray-700 flex items-center justify-center text-gray-500 group-hover:scale-110 transition-transform duration-500">
+                            <svg class="w-16 h-16 opacity-20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM8 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM9.5 8c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5zm6.5 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        </div>
+                        <div class="absolute bottom-4 right-4 z-20">
+                            <span class="bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded">شخصی</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">وبسایت شرکتی</h3>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-3">
+                            طراحی مینیمال و مدرن برای یک شرکت معماری با انیمیشن‌های GSAP و سرعت بارگذاری بالا.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">JS</span>
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">GSAP</span>
+                            <span class="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded">Sass</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-700/50">
+                            <a href="#" class="text-green-400 text-sm hover:underline flex items-center gap-1">
+                                مشاهده آنلاین
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-32">
+                <a href="#" class="inline-block border border-green-500 text-green-400 px-6 py-2 rounded-lg hover:bg-green-900/30 transition-colors">
+                    مشاهده آرشیو کامل
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black/50 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto glass-card rounded-2xl p-8 md:p-12 border border-green-900/50">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+                    بیایید <span class="text-green-400">گفتگو</span> کنیم
+                </h2>
+                <p class="text-center text-gray-400 mb-10">
+                    پروژه‌ای در ذهن دارید یا فقط می‌خواهید سلام کنید؟ فرم زیر را پر کنید.
+                </p>
+
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">نام شما</label>
+                            <input type="text" class="w-full bg-black/40 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all" placeholder="علی محمدی">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">ایمیل</label>
+                            <input type="email" class="w-full bg-black/40 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all" placeholder="ali@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">موضوع</label>
+                        <input type="text" class="w-full bg-black/40 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all" placeholder="پیشنهاد پروژه">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">پیام</label>
+                        <textarea rows="4" class="w-full bg-black/40 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all" placeholder="پیام خود را اینجا بنویسید..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-black font-bold py-4 rounded-lg transition-colors text-lg shadow-[0_0_15px_rgba(0,255,65,0.3)]">
+                        ارسال پیام
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-green-900/30 py-8 text-center relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-reverse space-x-6 mb-6">
+                <a href="#" class="text-gray-400 hover:text-green-400 transition-colors"><span class="sr-only">github</span>github</a>
+               
+                
+            </div>
+            <p class="text-gray-600 text-sm">
+                © 2025 ParsaOveshli. تمامی حقوق محفوظ است. <br>
+                طراحی شده با <span class="text-red-500">❤</span> توسط <a href="https://parsaoveshli.ir">Parsa Oveshli</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="script.obfuscated.js"></script>
+    <script src="script.js"></script>
+    <!-- Additional Protection -->
+    <script>
+        // Console clearing and anti-debugging
+        setInterval(() => {
+            console.clear();
+            if (console.clear) {
+                console.clear = function() {};
+            }
+        }, 1000);
+        
+        // Detect dev tools
+        var devtools = {
+            open: false,
+            orientation: null
+        };
+        
+        var threshold = 160;
+        
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > threshold || 
+                window.outerWidth - window.innerWidth > threshold) {
+                devtools.open = true;
+                document.body.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;color:white;z-index:9999;display:flex;align-items:center;justify-content:center;font-size:24px;">دسترسی غیرمجاز</div>';
+                setTimeout(function() {
+                    window.location.href = 'about:blank';
+                }, 3000);
+            }
+        }, 500);
+        
+        // Prevent downloading
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+S
+            if (e.ctrlKey && e.keyCode == 83) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+A
+            if (e.ctrlKey && e.keyCode == 65) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

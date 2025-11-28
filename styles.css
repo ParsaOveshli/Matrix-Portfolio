@@ -1,0 +1,64 @@
+/* Stylesheet Protected */
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: #050505;
+    color: #e0e0e0;
+    overflow-x: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Matrix Background Canvas */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.15;
+}
+
+.glass-card {
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 65, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.neon-text {
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
+    pointer-events: none;
+}
+
+.neon-border {
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    pointer-events: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00ff41;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00cc33;
+}
+
+.skill-bar-fill {
+    width: 0;
+    transition: width 1.5s ease-out;
+}
